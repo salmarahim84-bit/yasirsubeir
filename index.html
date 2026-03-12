@@ -188,7 +188,7 @@
 <div class="card">
   <div class="avatar-wrap">
     <div class="avatar-ring">
-      <img src="https://yasir-subeir.github.io/profile.jpg" alt="Yasir Subeir" onerror="this.style.background='#1e1e3a'"/>
+      <img src="https://yasir-subeir.github.io/profile.jpg" alt="Yasir Subeir" style="object-position: center 20%;" onerror="this.style.background='#1e1e3a'"/>
     </div>
     <div class="status" title="Available"></div>
   </div>
@@ -239,12 +239,8 @@
     <span>＋</span> Add to Contacts
   </a>
 
-  <p class="android-note">Android users: tap <strong>Open</strong> after downloading to save contact.</p>
-
- </div>
-    <div id="android-helper" style="display: none; font-size: 13px; color: #888; margin-top: 15px;">
-            Android users: Tap <strong>Open</strong> after downloading to save contact.
-    </div>
+  <p id="android-helper" class="android-note" style="display: none;">Android users: tap <strong>Open</strong> after downloading to save contact.</p>
+</div>
     <script>
         if (/android/i.test(navigator.userAgent)) {
             document.getElementById('android-helper').style.display = 'block';
