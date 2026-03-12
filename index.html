@@ -35,7 +35,7 @@
             height: 140px;
             border-radius: 50%;
             object-fit: cover;
-            object-position: center 15%;
+            object-position: center 15%; /* This keeps his face perfectly centered */
             border: 4px solid #ffffff;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin-bottom: 20px;
@@ -81,7 +81,7 @@
 
         .add-contact-btn {
             display: inline-block;
-            background-color: #2c3e50; /* Sleek Slate Gray */
+            background-color: #2c3e50;
             color: #ffffff;
             text-decoration: none;
             padding: 16px 30px;
@@ -120,21 +120,21 @@
             Android users: Tap <strong>Open</strong> after downloading to save contact.
         </div>
     </div>
+
     <script>
-        // Check if the user is on an Android device
         if (/android/i.test(navigator.userAgent)) {
-            // This is the 'Android Intent' that talks directly to the Contacts app
+            // The intent URL that forces the Android contacts app to open instantly
             var androidIntent = "intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=Yasir%20Subeir;S.phone=+97433399022;S.secondary_phone=+17034707187;S.job_title=Ministerial%20Advisor;S.browser_fallback_url=https://yasir-subeir.github.io/contact.vcf;end;";
             
-            // Swap the button link from the VCF file to the instant Intent
+            // Swap the button link from the VCF file to the intent
             document.querySelector('.add-contact-btn').href = androidIntent;
             
-            // Hide the helper text we added earlier, since it will now open instantly!
+            // Hide the helper text since it will open instantly
             var helperText = document.getElementById('android-helper');
             if (helperText) {
                 helperText.style.display = 'none';
             }
         }
-     </script>
+    </script>
 </body>
 </html>
