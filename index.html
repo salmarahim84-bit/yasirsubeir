@@ -123,18 +123,10 @@
 
     <script>
         if (/android/i.test(navigator.userAgent)) {
-            // The intent URL that forces the Android contacts app to open instantly
-            var androidIntent = "intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=Yasir%20Subeir;S.phone=+97433399022;S.secondary_phone=+17034707187;S.job_title=Ministerial%20Advisor;S.browser_fallback_url=https://yasir-subeir.github.io/contact.vcf;end;";
+            document.getElementById('android-helper').style.display = 'block';
             
-            // Swap the button link from the VCF file to the intent
-            document.querySelector('.add-contact-btn').href = androidIntent;
-            
-            // Hide the helper text since it will open instantly
-            var helperText = document.getElementById('android-helper');
-            if (helperText) {
-                helperText.style.display = 'none';
-            }
-        }
+         }
+        
     </script>
 </body>
 </html>
