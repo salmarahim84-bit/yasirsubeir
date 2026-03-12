@@ -1,126 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yasir Subeir - Digital Business Card</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Yasir Subeir</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0f;
+    --surface:rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
+    --text:#f0f0f5;
+    --muted:#888;
+    --accent:#7c6cfc;
+    --accent2:#a78bfa;
+    --gold:#d4af37;
+  }
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    position:relative;
+  }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f4f5f7;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  /* Animated gradient orbs */
+  .orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.35;pointer-events:none;animation:drift 12s ease-in-out infinite alternate}
+  .orb1{width:420px;height:420px;background:radial-gradient(circle,#7c6cfc,transparent);top:-10%;left:-10%;animation-delay:0s}
+  .orb2{width:340px;height:340px;background:radial-gradient(circle,#a855f7,transparent);bottom:-5%;right:-5%;animation-delay:-4s}
+  .orb3{width:260px;height:260px;background:radial-gradient(circle,#06b6d4,transparent);bottom:20%;left:5%;animation-delay:-8s}
+  @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(30px,20px) scale(1.08)}}
 
-        .card {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            margin: 20px;
-        }
+  /* Subtle grid overlay */
+  body::before{
+    content:'';position:fixed;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+    background-size:48px 48px;pointer-events:none;z-index:0;
+  }
 
-        .profile-img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center 15%; /* This keeps his face perfectly centered */
-            border: 4px solid #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
+  .card{
+    position:relative;z-index:1;
+    width:min(400px,92vw);
+    background:rgba(15,15,25,0.7);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:40px 32px 32px;
+    box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04) inset;
+    animation:rise .7s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
 
-        h1 {
-            margin: 0;
-            font-size: 26px;
-            color: #1a1a1a;
-            font-weight: 600;
-        }
+  /* Glowing top border accent */
+  .card::before{
+    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:60%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--accent),var(--accent2),transparent);
+    border-radius:100%;
+  }
 
-        .titles {
-            font-size: 14px;
-            color: #666;
-            margin: 10px 0 25px 0;
-            line-height: 1.5;
-            padding: 0 15px;
-        }
+  .avatar-wrap{
+    display:flex;justify-content:center;margin-bottom:20px;position:relative;
+  }
+  .avatar-ring{
+    width:96px;height:96px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent2),#06b6d4);
+    padding:2.5px;
+    box-shadow:0 0 28px rgba(124,108,252,.45);
+    animation:pulse-ring 3s ease-in-out infinite;
+  }
+  @keyframes pulse-ring{0%,100%{box-shadow:0 0 28px rgba(124,108,252,.45)}50%{box-shadow:0 0 44px rgba(124,108,252,.7)}}
+  .avatar-ring img{
+    width:100%;height:100%;border-radius:50%;object-fit:cover;
+    background:#1a1a2e;display:block;
+  }
 
-        .links {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 30px;
-        }
+  /* Status dot */
+  .status{
+    position:absolute;bottom:4px;right:calc(50% - 48px + 4px);
+    width:14px;height:14px;border-radius:50%;
+    background:#22c55e;border:2.5px solid var(--bg);
+    box-shadow:0 0 8px #22c55e;
+  }
 
-        .link-btn {
-            text-decoration: none;
-            color: #333;
-            background-color: #f8f9fa;
-            padding: 14px 20px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 400;
-            border: 1px solid #e9ecef;
-            transition: all 0.2s ease;
-        }
+  .name{
+    text-align:center;font-size:1.45rem;font-weight:700;
+    letter-spacing:-.02em;margin-bottom:6px;
+    background:linear-gradient(135deg,#fff 60%,var(--accent2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
 
-        .link-btn:hover {
-            background-color: #e9ecef;
-        }
+  .titles{
+    text-align:center;margin-bottom:18px;
+  }
+  .title-line{
+    font-size:.78rem;font-weight:500;
+    color:var(--muted);letter-spacing:.06em;text-transform:uppercase;line-height:1.7;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;}
+  .tag{
+    display:inline-block;
+    background:rgba(124,108,252,.1);
+    border:1px solid rgba(124,108,252,.25);
+    color:rgba(196,181,253,.8);border-radius:20px;
+    padding:3px 11px;font-size:.68rem;font-weight:500;letter-spacing:.04em;
+  }
 
-        .add-contact-btn {
-            display: inline-block;
-            background-color: #2c3e50;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 16px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 16px;
-            box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
-            transition: all 0.2s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
+  .divider{
+    height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);
+    margin:20px 0;
+  }
 
-        .add-contact-btn:hover {
-            background-color: #1a252f;
-            transform: translateY(-2px);
-        }
-    </style>
+  .links{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .link-btn{
+    display:flex;align-items:center;gap:14px;
+    padding:13px 18px;border-radius:14px;
+    background:var(--surface);border:1px solid var(--border);
+    color:var(--text);text-decoration:none;
+    font-size:.88rem;font-weight:500;
+    transition:all .22s cubic-bezier(.16,1,.3,1);
+    position:relative;overflow:hidden;
+  }
+  .link-btn::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(124,108,252,.12),transparent);
+    opacity:0;transition:opacity .22s;
+  }
+  .link-btn:hover{border-color:rgba(124,108,252,.5);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
+  .link-btn:hover::before{opacity:1;}
+  .link-btn:active{transform:translateY(0);}
+  .link-icon{
+    width:36px;height:36px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;flex-shrink:0;
+  }
+  .icon-phone{background:linear-gradient(135deg,#10b981,#059669);}
+  .icon-wa{background:linear-gradient(135deg,#25d366,#128c7e);}
+  .icon-li{background:linear-gradient(135deg,#0a66c2,#004182);}
+  .link-meta{display:flex;flex-direction:column;line-height:1.3;}
+  .link-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;}
+  .link-value{font-size:.85rem;font-weight:500;}
+  .link-arrow{margin-left:auto;color:var(--muted);font-size:.8rem;transition:transform .22s;}
+  .link-btn:hover .link-arrow{transform:translateX(3px);}
+
+  .cta{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:15px;border-radius:14px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;
+    letter-spacing:.01em;
+    box-shadow:0 8px 24px rgba(124,108,252,.4);
+    transition:all .22s cubic-bezier(.16,1,.3,1);
+    position:relative;overflow:hidden;
+  }
+  .cta::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+    opacity:0;transition:opacity .22s;
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(124,108,252,.55);}
+  .cta:hover::before{opacity:1;}
+  .cta:active{transform:translateY(0);}
+
+  .android-note{
+    text-align:center;font-size:.7rem;color:var(--muted);
+    margin-top:12px;line-height:1.5;
+  }
+
+  .footer{
+    text-align:center;margin-top:20px;font-size:.65rem;
+    color:rgba(255,255,255,.15);letter-spacing:.05em;
+  }
+</style>
 </head>
 <body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
 
-    <div class="card">
-        <img src="profile.jpg" alt="Yasir Subeir" class="profile-img">
-        
-        <h1>Yasir Subeir</h1>
-        <div class="titles">Ministerial Advisor | C-Level Executive <br> Giga Programs Leadership</div>
-
-        <div class="links">
-            <a href="tel:+97433399022" class="link-btn">📞 Voice: +974 333 99022</a>
-            <a href="https://wa.me/17034707187" class="link-btn">💬 WhatsApp: +1 703 470 7187</a>
-            <a href="https://www.linkedin.com/in/yasirsubeir" class="link-btn" target="_blank">🔗 LinkedIn Profile</a>
-        </div>
-
-        <a href="contact.vcf" class="add-contact-btn">Add to Contacts</a>
-        
-        <div id="android-helper" style="display: none; font-size: 13px; color: #888; margin-top: 15px;">
-            Android users: Tap <strong>Open</strong> after downloading to save contact.
-        </div>
+<div class="card">
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <img src="https://yasir-subeir.github.io/profile.jpg" alt="Yasir Subeir" onerror="this.style.background='#1e1e3a'"/>
     </div>
+    <div class="status" title="Available"></div>
+  </div>
 
+  <div class="name">Yasir Subeir</div>
+  <div class="titles">
+    <div class="tags">
+      <span class="tag">Ministerial &amp; Executive Advisory</span>
+      <span class="tag">Giga Portfolios Delivery</span>
+      <span class="tag">Infrastructure</span>
+      <span class="tag">Mobility</span>
+      <span class="tag">Smart Cities</span>
+      <span class="tag">Real Estate</span>
+      <span class="tag">Mega Global Events</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="links">
+    <a href="tel:+97433399022" class="link-btn">
+      <div class="link-icon icon-phone">📞</div>
+      <div class="link-meta">
+        <span class="link-label">Voice</span>
+        <span class="link-value">+974 333 99022</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+    <a href="https://wa.me/17034707187" class="link-btn" target="_blank" rel="noopener">
+      <div class="link-icon icon-wa">💬</div>
+      <div class="link-meta">
+        <span class="link-label">WhatsApp</span>
+        <span class="link-value">+1 703 470 7187</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+    <a href="https://www.linkedin.com/in/yasirsubeir" class="link-btn" target="_blank" rel="noopener">
+      <div class="link-icon icon-li">🔗</div>
+      <div class="link-meta">
+        <span class="link-label">LinkedIn</span>
+        <span class="link-value">linkedin.com/in/yasirsubeir</span>
+      </div>
+      <span class="link-arrow">›</span>
+    </a>
+  </div>
+
+  <a href="https://yasir-subeir.github.io/contact.vcf" class="cta" download>
+    <span>＋</span> Add to Contacts
+  </a>
+
+  <p class="android-note">Android users: tap <strong>Open</strong> after downloading to save contact.</p>
+
+ </div>
+    <div id="android-helper" style="display: none; font-size: 13px; color: #888; margin-top: 15px;">
+            Android users: Tap <strong>Open</strong> after downloading to save contact.
+    </div>
     <script>
         if (/android/i.test(navigator.userAgent)) {
             document.getElementById('android-helper').style.display = 'block';
