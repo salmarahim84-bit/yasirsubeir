@@ -115,7 +115,26 @@
         </div>
 
         <a href="contact.vcf" class="add-contact-btn">Add to Contacts</a>
+        
+        <div id="android-helper" style="display: none; font-size: 13px; color: #888; margin-top: 15px;">
+            Android users: Tap <strong>Open</strong> after downloading to save contact.
+        </div>
     </div>
-
+    <script>
+        // Check if the user is on an Android device
+        if (/android/i.test(navigator.userAgent)) {
+            // This is the 'Android Intent' that talks directly to the Contacts app
+            var androidIntent = "intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=Yasir%20Subeir;S.phone=+97433399022;S.secondary_phone=+17034707187;S.job_title=Ministerial%20Advisor;S.browser_fallback_url=https://yasir-subeir.github.io/contact.vcf;end;";
+            
+            // Swap the button link from the VCF file to the instant Intent
+            document.querySelector('.add-contact-btn').href = androidIntent;
+            
+            // Hide the helper text we added earlier, since it will now open instantly!
+            var helperText = document.getElementById('android-helper');
+            if (helperText) {
+                helperText.style.display = 'none';
+            }
+        }
+     </script>
 </body>
 </html>
