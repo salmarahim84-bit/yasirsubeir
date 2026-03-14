@@ -199,28 +199,26 @@ async function addContact() {
     'N:Subeir;Yasir;;;',
     'TITLE:Ministerial & Executive Advisory',
     'TEL;TYPE=VOICE,CELL:+17034707187',
-    'TEL;TYPE=VOICE,CELL:+97433399022',
+    'TEL;TYPE=WORK,CELL:+97433399022',
     'URL:https://www.linkedin.com/in/yasirsubeir',
     'END:VCARD'
   ].join('\r\n');
 
-  const blob = new Blob([vcf], { type: 'text/vcard' });
-  const file = new File([blob], 'YasirSubeir.vcf', { type: 'text/vcard' });
+  const isAndroid = /android/i.test(navigator.userAgent);
 
-  if (navigator.share && navigator.canShare({ files: [file] })) {
-    try {
-      await navigator.share({ files: [file], title: 'Yasir Subeir' });
-      return;
-    } catch(e) {}
+  if (isAndroid) {
+    // Data URI opens directly in Android Contacts app
+    window.location.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcf);
+    return;
   }
-  // Fallback: direct download
+
+  // iOS & desktop: blob download (iOS handles .vcf natively)
+  const blob = new Blob([vcf], { type: 'text/vcard' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'YasirSubeir.vcf';
   a.click();
-  if (/android/i.test(navigator.userAgent))
-    document.getElementById('android-note').style.display = 'block';
 }
 </script>
 </body>
-</html
+</html>
