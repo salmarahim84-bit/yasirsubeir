@@ -192,22 +192,35 @@
 
 <script>
 async function addContact() {
-  const vcfUrl = 'contact.vcf';
-  try {
-    const res = await fetch(vcfUrl);
-    const blob = await res.blob();
-    const file = new File([blob], 'YasirSubeir.vcf', { type: 'text/vcard' });
-    if (navigator.share && navigator.canShare({ files: [file] })) {
+  const vcf = [
+    'BEGIN:VCARD',
+    'VERSION:3.0',
+    'FN:Yasir Subeir',
+    'N:Subeir;Yasir;;;',
+    'TITLE:Ministerial & Executive Advisory',
+    'TEL;TYPE=VOICE,CELL:+17034707187',
+    'TEL;TYPE=VOICE,CELL:+97433399022',
+    'URL:https://www.linkedin.com/in/yasirsubeir',
+    'END:VCARD'
+  ].join('\r\n');
+
+  const blob = new Blob([vcf], { type: 'text/vcard' });
+  const file = new File([blob], 'YasirSubeir.vcf', { type: 'text/vcard' });
+
+  if (navigator.share && navigator.canShare({ files: [file] })) {
+    try {
       await navigator.share({ files: [file], title: 'Yasir Subeir' });
       return;
-    }
-  } catch(e) {}
+    } catch(e) {}
+  }
+  // Fallback: direct download
   const a = document.createElement('a');
-  a.href = vcfUrl; a.download = 'YasirSubeir.vcf';
+  a.href = URL.createObjectURL(blob);
+  a.download = 'YasirSubeir.vcf';
   a.click();
   if (/android/i.test(navigator.userAgent))
     document.getElementById('android-note').style.display = 'block';
 }
 </script>
 </body>
-</html>
+</html
